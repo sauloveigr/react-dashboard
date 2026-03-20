@@ -8,13 +8,13 @@ type DashboardHeaderProps = {
 
 export function DashboardHeader({ title }: DashboardHeaderProps) {
   return (
-    <header className="bg-background/70 sticky top-0 z-10 flex h-16 items-center justify-between border-b px-4 backdrop-blur md:px-6">
-      <div>
+    <header className="bg-background/70 sticky top-0 z-10 flex min-h-16 items-center justify-between border-b px-4 py-2 backdrop-blur md:h-16 md:px-6 md:py-0">
+      <div className="pr-2">
         <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
         <p className="text-muted-foreground text-sm">Overview of your top-level performance metrics</p>
       </div>
 
-      <div className="flex items-center gap-2 md:gap-3">
+      <div className="flex items-center gap-2 pl-2 md:gap-3">
         <Button className="hidden sm:inline-flex">
           <Plus className="mr-2 h-4 w-4" />
           Create new
