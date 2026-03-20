@@ -1,9 +1,16 @@
-import { dashboardDataSchema } from "@/features/dashboard/model/schema";
-import { DASHBOARD_MOCK_DATA } from "@/features/dashboard/model/mock-data";
-import type { DashboardData } from "@/features/dashboard/model/types";
+import {dashboardDataSchema} from '@/features/dashboard/model/schema';
+import type {DashboardData} from '@/features/dashboard/model/types';
+import {mapToDashboardData} from './mappers';
+import {getCarts, getProducts, getUsers} from './requests';
 
 export async function getDashboardData(): Promise<DashboardData> {
-  // Mimics a network boundary where runtime validation matters.
-  const parsedData = dashboardDataSchema.parse(DASHBOARD_MOCK_DATA);
-  return Promise.resolve(parsedData);
+    const [usersResponse, productsResponse, cartsResponse] =
+        await Promise.all([getUsers(), getProducts(), getCarts()]);
+
+    const mappedData = mapToDashboardData(
+        usersResponse,
+        productsResponse,
+        cartsResponse,
+    );
+    return dashboardDataSchema.parse(mappedData);
 }
